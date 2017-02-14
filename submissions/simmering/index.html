@@ -15,12 +15,14 @@
 
     <div id="partTwo">
         <h1>Part Two: </h1>
+        <h4>Note: crispEdges bugged</h4>
         <div id="barchart">
         </div>
 	</div>
 
     <div id="partThree">
         <h1>Part Three &amp; Four: </h1>
+        <h4>Note: crispEdges bugged, tooltips, hover-color, onclick enabled</h4>
         <div id="scatterplot">
             <p id="scatterLabel"></p>
         </div>
@@ -74,7 +76,7 @@
             height = 700 - margin.right - margin.left;
 
         //define svg, graph area, g used for grouping elements
-        var svg = d3.select('#barchart')
+        var svgBarChart = d3.select('#barchart')
             .append('svg')
             .attr ({
               'width' : width + margin.right + margin.left,
@@ -106,7 +108,6 @@
           data.forEach(function(d) {
             d.x = +d.x;
             d.y = +d.y;
-            console.log("x: " + d.x + " y: " + d.y)
           });
 
           //sort data descending
@@ -118,7 +119,7 @@
           yScale.domain([0, d3.max(data, function(d) { return d.y; })] );
 
           //draw the bars
-          svg.selectAll('rect')
+          svgBarChart.selectAll('rect')
               .data(data)
               .enter()
               .append('rect')
@@ -135,7 +136,7 @@
               .style("fill", function(d,i) { return 'rgb(20, 20, ' + ((i * 30) + 100) + ')' });
 
           //label the bars
-          svg.selectAll('text')
+          svgBarChart.selectAll('text')
               .data(data)
               .enter()
               .append('text')
@@ -146,16 +147,149 @@
               .style("text-anchor", "middle");
 
           //draw x,y axis
-          svg.append('g')
+          svgBarChart.append('g')
               .attr("class", "x-axis")
               .attr('transform', 'translate(0,' + height + ')')
               .call(xAxis)
 
-          svg.append('g')
+          svgBarChart.append('g')
               .attr("class", "y-axis")
               .call(yAxis)
+
+          //graph lebels
+          svgBarChart.append("text")
+              .attr("x", 300)
+              .attr("y", 700)
+              .style("text-anchor", "middle")
+              .text("X");
+
+          svgBarChart.append("text")
+              .attr("x", -35)
+              .attr("y", 300)
+              .style("text-anchor", "middle")
+              .text("Y");
+
+          svgBarChart.append("text")
+              .attr("x", 350)
+              .attr("y", 20)
+              .style("text-anchor", "middle")
+              .text("X vs. Y Barchart");
+
         });
         // Put your part three & four code here ***********************
+
+        //d3 margin convention
+        var margin = {top: 20, right: 10, bottom: 100, left: 40},
+            width = 700 - margin.right - margin.left,
+            height = 700 - margin.right - margin.left;
+
+        //define svg, graph area, g used for grouping elements
+        var svgScatterPlot = d3.select('#scatterplot')
+            .append('svg')
+            .attr ({
+              'width' : width + margin.right + margin.left,
+              'height' : height + margin.top + margin .bottom
+            })
+            .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
+
+        //define the x,y scales
+        var xScale = d3.scale.ordinal()
+            .rangeRoundBands([0,width], 0.3, 0.3);
+
+        var yScale = d3.scale.linear()
+            .range([height, 0]);
+
+        //define axis
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+
+        var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+
+        // add the tooltip area to the webpage
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        //import data again since arrays arn't mapping due to asynchronousness
+        d3.csv("/data/anscombe_I.csv", function(data) {
+
+          //convert string numbers to ints
+          data.forEach(function(d) {
+            d.x = +d.x;
+            d.y = +d.y;
+          });
+
+          //sort data descending
+          data.sort(function(a,b) {
+            return b.y - a.y;
+          });
+
+          xScale.domain(data.map(function(d) { return d.x; }) );
+          yScale.domain([0, d3.max(data, function(d) { return d.y; })] );
+
+          // draw dots
+          svgScatterPlot.selectAll(".dot")
+              .data(data)
+              .enter().append("circle")
+              .attr("class", "dot")
+              .attr("r", 3.5)
+              .attr({
+                  'cx': function(d) { return xScale(d.x); },
+                  'cy': function(d) { return yScale(d.y); }
+              })
+              .on("mouseover", function(d) {
+                  tooltip.transition()
+                       .duration(200)
+                       .style("opacity", .9);
+                  tooltip.html("(x,y)" + "<br/> (" + d.x
+        	        + ", " + d.y + ")")
+                       .style("left", (d3.event.pageX + 5) + "px")
+                       .style("top", (d3.event.pageY - 28) + "px");
+              })
+              .on("mouseout", function(d) {
+                  tooltip.transition()
+                       .duration(500)
+                       .style("opacity", 0);
+              })
+              .on ("click", function(d) {
+                var p = document.getElementById("scatterLabel");
+                p.innerHTML = "x: " + d.x + " y: " + d.y;
+              });
+
+          //draw x,y axis
+          svgScatterPlot.append('g')
+              .attr("class", "x-axis")
+              .attr('transform', 'translate(0,' + height + ')')
+              .call(xAxis)
+
+          svgScatterPlot.append('g')
+              .attr("class", "y-axis")
+              .call(yAxis)
+
+          //graph lebels
+          svgScatterPlot.append("text")
+              .attr("x", 300)
+              .attr("y", 700)
+              .style("text-anchor", "middle")
+              .text("X");
+
+          svgScatterPlot.append("text")
+              .attr("x", -35)
+              .attr("y", 300)
+              .style("text-anchor", "middle")
+              .text("Y");
+
+          svgScatterPlot.append("text")
+              .attr("x", 350)
+              .attr("y", 20)
+              .style("text-anchor", "middle")
+              .text("X vs. Y Scatterplot");
+
+        });
 
         // Put your part five code here ***********************
 

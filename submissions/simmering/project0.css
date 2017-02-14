@@ -9,8 +9,8 @@ svg {
   display: block;
 }
 
-.axis path,
-.axis line {
+ .axis path,
+ .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
@@ -26,4 +26,17 @@ svg {
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+
+circle:hover {
+    fill: #49fb35;
+    stroke: #49fb35;
+    stroke-width: 5px;
 }
