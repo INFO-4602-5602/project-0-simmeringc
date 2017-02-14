@@ -109,7 +109,7 @@
             .scale(yScale)
             .orient("left");
 
-        //import data again since arrays arn't mapping due to asynchronousness
+        //import data again
         d3.csv("/data/anscombe_I.csv", function(data) {
 
           //convert string numbers to ints
@@ -186,10 +186,12 @@
         });
         // Put your part three & four code here ***********************
 
-        //d3 margin convention
-        var margin = {top: 20, right: 10, bottom: 100, left: 40},
-            width = 700 - margin.right - margin.left,
-            height = 700 - margin.right - margin.left;
+        //marings, scales, and axis's previously defined
+
+        // add the tooltip area to the webpage
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
         //define svg, graph area, g used for grouping elements
         var svgScatterPlot = d3.select('#scatterplot')
@@ -201,28 +203,8 @@
             .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
 
-        //define the x,y scales
-        var xScale = d3.scale.ordinal()
-            .rangeRoundBands([0,width], 0.3, 0.3);
 
-        var yScale = d3.scale.linear()
-            .range([height, 0]);
-
-        //define axis
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-
-        // add the tooltip area to the webpage
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        //import data again since arrays arn't mapping due to asynchronousness
+        //import data again
         d3.csv("/data/anscombe_I.csv", function(data) {
 
           //convert string numbers to ints
@@ -306,11 +288,6 @@
         *********************************
         */
 
-        //d3 margin convention
-        var margin = {top: 20, right: 10, bottom: 100, left: 40},
-            width = 700 - margin.right - margin.left,
-            height = 700 - margin.right - margin.left;
-
         //define svg, graph area, g used for grouping elements
         var chart1 = d3.select('#chart1')
             .append('svg')
@@ -321,29 +298,8 @@
             .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
 
-        //define the x,y scales
-        var xScale = d3.scale.ordinal()
-            .rangeRoundBands([0,width], 0.3, 0.3);
-
-        var yScale = d3.scale.linear()
-            .range([height, 0]);
-
-        //define axis
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-
-        // add the tooltip area to the webpage
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        //import data again since arrays arn't mapping due to asynchronousness
-        d3.csv("/data/anscombe_II.csv", function(data) {
+        //import data again
+        d3.csv("/data/anscombe_I.csv", function(data) {
 
           //convert string numbers to ints
           data.forEach(function(d) {
@@ -420,10 +376,7 @@
         *********************************
         */
 
-        //d3 margin convention
-        var margin = {top: 20, right: 10, bottom: 100, left: 40},
-            width = 700 - margin.right - margin.left,
-            height = 700 - margin.right - margin.left;
+        //marings, scales, axis's, and tooltips previously defined
 
         //define svg, graph area, g used for grouping elements
         var chart2 = d3.select('#chart2')
@@ -435,29 +388,8 @@
             .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
 
-        //define the x,y scales
-        var xScale = d3.scale.ordinal()
-            .rangeRoundBands([0,width], 0.3, 0.3);
-
-        var yScale = d3.scale.linear()
-            .range([height, 0]);
-
-        //define axis
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-
-        // add the tooltip area to the webpage
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        //import data again since arrays arn't mapping due to asynchronousness
-        d3.csv("/data/anscombe_III.csv", function(data) {
+        //import data again
+        d3.csv("/data/anscombe_II.csv", function(data) {
 
           //convert string numbers to ints
           data.forEach(function(d) {
@@ -534,10 +466,7 @@
         *********************************
         */
 
-        //d3 margin convention
-        var margin = {top: 20, right: 10, bottom: 100, left: 40},
-            width = 700 - margin.right - margin.left,
-            height = 700 - margin.right - margin.left;
+        //marings, scales, axis's, and tooltips previously defined
 
         //define svg, graph area, g used for grouping elements
         var chart3 = d3.select('#chart3')
@@ -549,29 +478,8 @@
             .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
 
-        //define the x,y scales
-        var xScale = d3.scale.ordinal()
-            .rangeRoundBands([0,width], 0.3, 0.3);
-
-        var yScale = d3.scale.linear()
-            .range([height, 0]);
-
-        //define axis
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-
-        // add the tooltip area to the webpage
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        //import data again since arrays arn't mapping due to asynchronousness
-        d3.csv("/data/anscombe_I.csv", function(data) {
+        //import data again
+        d3.csv("/data/anscombe_III.csv", function(data) {
 
           //convert string numbers to ints
           data.forEach(function(d) {
@@ -648,10 +556,7 @@
         *********************************
         */
 
-        //d3 margin convention
-        var margin = {top: 20, right: 10, bottom: 100, left: 40},
-            width = 700 - margin.right - margin.left,
-            height = 700 - margin.right - margin.left;
+        //marings, scales, axis's, and tooltips previously defined
 
         //define svg, graph area, g used for grouping elements
         var chart4 = d3.select('#chart4')
@@ -663,28 +568,7 @@
             .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')')
 
-        //define the x,y scales
-        var xScale = d3.scale.ordinal()
-            .rangeRoundBands([0,width], 0.3, 0.3);
-
-        var yScale = d3.scale.linear()
-            .range([height, 0]);
-
-        //define axis
-        var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-
-        var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-
-        // add the tooltip area to the webpage
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        //import data again since arrays arn't mapping due to asynchronousness
+        //import data
         d3.csv("/data/anscombe_IV.csv", function(data) {
 
           //convert string numbers to ints
