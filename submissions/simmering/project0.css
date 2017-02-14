@@ -40,3 +40,7 @@ circle:hover {
     stroke: #49fb35;
     stroke-width: 5px;
 }
+
+.container {
+  float: left;
+}
